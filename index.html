@@ -302,11 +302,272 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
 .flash.bad{  background: radial-gradient(circle at 50% 35%, rgba(251,113,133,.24), transparent 62%); }
 .flash.on{ animation: flash .55s ease-out; }
 @keyframes flash{ 0%{ opacity:0; } 20%{ opacity:1; } 100%{ opacity:0; } }
+
+/* (opcional) toggle mais visível */
+.toggle{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border-radius: 14px;
+  border:1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.08);
+  color: rgba(238,242,255,.90);
+  font-size:12px;
+  font-weight:900;
+  user-select:none;
+}
+.toggle input{
+  width:16px;
+  height:16px;
+  accent-color: hsl(var(--moodHue) 90% 60%);
+}
+
+/* =========================
+   PORTAL / TELA DE ENTRADA
+========================= */
+#app.appHidden{ display:none; }
+
+.gate{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.gate-bg{
+  position:absolute;
+  inset:-40px;
+  background:
+    radial-gradient(1200px 700px at 20% 10%, rgba(160,90,255,.25), transparent 60%),
+    radial-gradient(900px 600px at 80% 20%, rgba(0,255,200,.16), transparent 55%),
+    radial-gradient(900px 650px at 30% 85%, rgba(255,80,120,.18), transparent 55%),
+    linear-gradient(180deg, rgba(10,14,20,.88), rgba(10,14,20,.96));
+  transform: scale(1.06);
+}
+
+.gate-orbs .orb{
+  position:absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 999px;
+  filter: blur(18px);
+  opacity:.5;
+  mix-blend-mode: screen;
+  animation: orbFloat 6.2s ease-in-out infinite;
+}
+.gate-orbs .o1{
+  left:10%;
+  top:20%;
+  background: radial-gradient(circle at 30% 30%, rgba(120,90,255,.95), transparent 62%);
+}
+.gate-orbs .o2{
+  right:12%;
+  top:14%;
+  background: radial-gradient(circle at 60% 40%, rgba(0,255,200,.75), transparent 62%);
+  animation-duration: 7.1s;
+}
+.gate-orbs .o3{
+  left:26%;
+  bottom:8%;
+  background: radial-gradient(circle at 40% 50%, rgba(255,90,130,.85), transparent 62%);
+  animation-duration: 7.8s;
+}
+@keyframes orbFloat{
+  0%{ transform: translate3d(0,0,0) scale(1); }
+  50%{ transform: translate3d(0,-18px,0) scale(1.06); }
+  100%{ transform: translate3d(0,0,0) scale(1); }
+}
+
+.gate-card{
+  position:relative;
+  width:min(720px, 92vw);
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  box-shadow: 0 24px 80px rgba(0,0,0,.65);
+  padding: 26px 22px;
+  text-align:center;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.gate-title{
+  font-size: 34px;
+  font-weight: 1000;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, rgba(255,255,255,.92), rgba(160,240,255,.88), rgba(210,170,255,.90));
+  -webkit-background-clip: text;
+  background-clip:text;
+  color: transparent;
+  text-shadow: 0 0 22px rgba(160,240,255,.18);
+  animation: shimmer 2.2s ease-in-out infinite;
+}
+@keyframes shimmer{
+  0%,100%{ filter: brightness(1); }
+  50%{ filter: brightness(1.16); }
+}
+
+.gate-sub{
+  margin-top: 10px;
+  font-size: 15px;
+  color: rgba(238,242,255,.80);
+}
+.gate-sub b{
+  color: rgba(255,255,255,.95);
+  text-shadow: 0 0 18px rgba(160,240,255,.20);
+}
+
+.gate-line{
+  width: min(520px, 86%);
+  height: 1px;
+  margin: 18px auto 16px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+}
+
+/* glitch leve no タバコ */
+.gate-sub .glitch{
+  position:relative;
+  display:inline-block;
+}
+.gate-sub .glitch::before,
+.gate-sub .glitch::after{
+  content: attr(data-text);
+  position:absolute;
+  left:0;
+  top:0;
+  opacity:.35;
+  pointer-events:none;
+}
+.gate-sub .glitch::before{
+  transform: translate(1px,0);
+  color: rgba(0,255,200,.55);
+  animation: glitch 1.9s infinite linear alternate-reverse;
+}
+.gate-sub .glitch::after{
+  transform: translate(-1px,0);
+  color: rgba(255,90,130,.55);
+  animation: glitch 2.1s infinite linear alternate;
+}
+@keyframes glitch{
+  0%{ clip-path: inset(0 0 90% 0); }
+  20%{ clip-path: inset(10% 0 55% 0); }
+  40%{ clip-path: inset(35% 0 30% 0); }
+  60%{ clip-path: inset(55% 0 15% 0); }
+  80%{ clip-path: inset(75% 0 8% 0); }
+  100%{ clip-path: inset(90% 0 0 0); }
+}
+
+.gate-btn{
+  position:relative;
+  border:none;
+  cursor:pointer;
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-weight: 1000;
+  letter-spacing: .6px;
+  color: rgba(255,255,255,.96);
+  background: linear-gradient(90deg, rgba(120,90,255,.52), rgba(0,255,200,.24), rgba(255,90,130,.32));
+  box-shadow: 0 18px 50px rgba(0,0,0,.55);
+}
+.gate-btn:hover{ filter: brightness(1.12); }
+.gate-btn:active{ transform: translateY(1px); }
+.gate-btn:disabled{ opacity:.7; cursor:not-allowed; }
+
+.gate-btn-glow{
+  position:absolute;
+  inset:-2px;
+  border-radius: 20px;
+  background: radial-gradient(circle at 20% 30%, rgba(255,255,255,.35), transparent 55%);
+  opacity:.35;
+  pointer-events:none;
+  animation: glowPulse 1.8s ease-in-out infinite;
+}
+@keyframes glowPulse{
+  0%,100%{ opacity:.25; }
+  50%{ opacity:.55; }
+}
+
+.gate-note{
+  margin-top: 14px;
+  font-size: 12px;
+  color: rgba(238,242,255,.58);
+}
+
+/* FX imersivo */
+.gate-fx{
+  position:absolute;
+  inset:-40px;
+  pointer-events:none;
+  opacity:0;
+  background:
+    radial-gradient(650px 400px at 50% 45%, rgba(255,255,255,.18), transparent 60%),
+    radial-gradient(900px 600px at 50% 55%, rgba(120,90,255,.22), transparent 62%),
+    radial-gradient(900px 600px at 55% 50%, rgba(0,255,200,.18), transparent 62%);
+  transform: scale(1);
+}
+
+.gate.leaving .gate-card{
+  animation: gateCardOut .55s ease forwards;
+}
+@keyframes gateCardOut{
+  to{ opacity:0; transform: translateY(10px) scale(.96); }
+}
+.gate.leaving .gate-bg{
+  animation: gateBgOut .75s ease forwards;
+}
+@keyframes gateBgOut{
+  to{ transform: scale(1.12); opacity:0; }
+}
+.gate.leaving .gate-fx{
+  opacity:1;
+  animation: gateFx .75s ease forwards;
+}
+@keyframes gateFx{
+  0%{ transform: scale(1); opacity:0; }
+  30%{ transform: scale(1.12); opacity:1; }
+  100%{ transform: scale(1.35); opacity:0; }
+}
 </style>
 </head>
 
 <body>
 <div id="flash" class="flash"></div>
+
+<!-- ====== PORTAL / TELA DE ENTRADA ====== -->
+<section id="gate" class="gate">
+  <div class="gate-bg"></div>
+
+  <div class="gate-orbs">
+    <span class="orb o1"></span>
+    <span class="orb o2"></span>
+    <span class="orb o3"></span>
+  </div>
+
+  <div class="gate-card">
+    <div class="gate-title">yooo</div>
+    <div class="gate-sub">
+      Súditos do <b>ヴァンパイア様</b> —
+      <span class="glitch" data-text="タバコ">タバコ</span>
+    </div>
+    <div class="gate-line"></div>
+
+    <button id="enterBtn" class="gate-btn">
+      Entrar
+      <span class="gate-btn-glow"></span>
+    </button>
+
+    <div class="gate-note">Clique e atravesse o portal.</div>
+  </div>
+
+  <div id="gateFx" class="gate-fx"></div>
+</section>
+
+<!-- ====== APP (site real) ====== -->
+<div id="app" class="appHidden">
 
 <header>
   <div class="topbar">
@@ -528,7 +789,6 @@ const N4_SET = new Set(N4_LIST);
 
 /* =========================
    KANJI_INFO (PT-BR) — fonte única
-   OBS: significados principais + leituras comuns (kun/on).
 ========================= */
 const KANJI_INFO = {
   // ===== N5 =====
@@ -1524,7 +1784,37 @@ function init(){
   setQuestion("一", false);
 }
 init();
+
+/* =========================
+   PORTAL / ENTRADA (imersivo)
+========================= */
+(function(){
+  const gate = document.getElementById("gate");
+  const app  = document.getElementById("app");
+  const btn  = document.getElementById("enterBtn");
+  if(!gate || !app || !btn) return;
+
+  function enter(){
+    gate.classList.add("leaving");
+    btn.disabled = true;
+
+    // “puxada” no clima ao entrar (mais azulado)
+    document.documentElement.style.setProperty("--moodHue", "210");
+
+    setTimeout(()=>{
+      gate.style.display = "none";
+      app.classList.remove("appHidden");
+      window.scrollTo(0,0);
+    }, 720);
+  }
+
+  btn.addEventListener("click", enter);
+  window.addEventListener("keydown", (e)=>{
+    if(e.key === "Enter" && gate.style.display !== "none") enter();
+  });
+})();
 </script>
 
+</div><!-- fecha #app -->
 </body>
 </html>
