@@ -362,31 +362,31 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
   filter: blur(.2px);
 }
 
+/* ===== TORII (SVG) — MAIS REAL E PRESENTE ===== */
 .jp-torii{
   position:absolute;
   left:50%;
   top:50%;
-  width:min(860px, 96vw);
-  height:min(520px, 64vh);
-  transform: translate(-50%,-52%);
-  opacity:.18;
-  filter: blur(.2px);
-  background:
-    radial-gradient(closest-side at 50% 60%, rgba(0,255,200,.22), transparent 70%),
-    radial-gradient(closest-side at 50% 55%, rgba(120,90,255,.22), transparent 72%);
+  width:min(980px, 98vw);
+  height:min(620px, 76vh);
+  transform: translate(-50%,-54%);
+  opacity:.55;
+  pointer-events:none;
+  z-index:1;
+  filter: blur(.0px);
+  animation: toriiFloat 5.5s ease-in-out infinite;
 }
-.jp-torii::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg, transparent 0 14%, rgba(255,255,255,.85) 14% 86%, transparent 86% 100%) 50% 22%/100% 10px no-repeat,
-    linear-gradient(90deg, transparent 0 22%, rgba(255,255,255,.62) 22% 78%, transparent 78% 100%) 50% 28%/100% 7px no-repeat,
-    linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.15)) 30% 32%/10px 58% no-repeat,
-    linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.15)) 70% 32%/10px 58% no-repeat,
-    linear-gradient(90deg, transparent 0 34%, rgba(255,255,255,.50) 34% 66%, transparent 66% 100%) 50% 38%/100% 6px no-repeat;
-  border-radius: 28px;
-  filter: drop-shadow(0 0 22px rgba(0,255,200,.20));
+.jp-torii svg{
+  width:100%;
+  height:100%;
+  display:block;
+  opacity:1;
+  transform: scale(1.02);
+  filter: drop-shadow(0 0 28px rgba(0,255,200,.10));
+}
+@keyframes toriiFloat{
+  0%,100%{ transform: translate(-50%,-54%) scale(1.02); opacity:.52; }
+  50%{ transform: translate(-50%,-55.2%) scale(1.03); opacity:.62; }
 }
 
 .shoji{
@@ -402,6 +402,7 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   opacity:.95;
+  z-index:2;
 }
 .shoji.left{ left:0; border-right:1px solid rgba(255,255,255,.16); }
 .shoji.right{ right:0; border-left:1px solid rgba(255,255,255,.16); }
@@ -415,7 +416,7 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
 
 .jp-card{
   position:relative;
-  z-index:2;
+  z-index:4;
   width:min(720px, 92vw);
   border-radius: 26px;
   border: 1px solid rgba(255,255,255,.18);
@@ -425,10 +426,10 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
   text-align:center;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  animation: jpIn .65s ease both;
+  animation: jpIn 1.25s ease both; /* MAIS DEVAGAR */
 }
 @keyframes jpIn{
-  from{ opacity:0; transform: translateY(10px) scale(.985); }
+  from{ opacity:0; transform: translateY(18px) scale(.975); }
   to{ opacity:1; transform: translateY(0) scale(1); }
 }
 
@@ -557,7 +558,7 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
   position:absolute;
   inset:0;
   pointer-events:none;
-  z-index:1;
+  z-index:3;
 }
 .petal{
   position:absolute;
@@ -592,22 +593,24 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
     radial-gradient(900px 650px at 50% 55%, rgba(120,90,255,.20), transparent 62%),
     radial-gradient(900px 650px at 55% 50%, rgba(0,255,200,.16), transparent 62%);
   transform: scale(1);
+  z-index:5;
 }
 
-.jpGate.leaving .shoji.left{ animation: shojiLeft .78s ease forwards; }
-.jpGate.leaving .shoji.right{ animation: shojiRight .78s ease forwards; }
+/* ===== SAÍDA MAIS DEVAGAR ===== */
+.jpGate.leaving .shoji.left{ animation: shojiLeft 1.55s cubic-bezier(.2,.9,.2,1) forwards; }
+.jpGate.leaving .shoji.right{ animation: shojiRight 1.55s cubic-bezier(.2,.9,.2,1) forwards; }
 @keyframes shojiLeft{ to{ transform: translateX(-105%); opacity:.98; } }
 @keyframes shojiRight{ to{ transform: translateX(105%); opacity:.98; } }
 
-.jpGate.leaving .jp-card{ animation: cardOut .55s ease forwards; }
-@keyframes cardOut{ to{ opacity:0; transform: translateY(10px) scale(.985); } }
+.jpGate.leaving .jp-card{ animation: cardOut 1.05s ease forwards; }
+@keyframes cardOut{ to{ opacity:0; transform: translateY(12px) scale(.985); } }
 
-.jpGate.leaving .jp-bg{ animation: bgOut .85s ease forwards; }
+.jpGate.leaving .jp-bg{ animation: bgOut 1.65s ease forwards; }
 @keyframes bgOut{ to{ transform: scale(1.12); opacity:0; } }
 
 .jpGate.leaving .jp-fx{
   opacity:1;
-  animation: fx .85s ease forwards;
+  animation: fx 1.65s ease forwards;
 }
 @keyframes fx{
   0%{ transform: scale(1); opacity:0; }
@@ -624,7 +627,84 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
 <section id="gate" class="jpGate">
   <div class="jp-bg"></div>
   <div class="jp-pattern"></div>
-  <div class="jp-torii"></div>
+
+  <!-- TORII (SVG REAL) -->
+  <div class="jp-torii" aria-hidden="true">
+    <svg viewBox="0 0 1200 700" role="presentation">
+      <defs>
+        <radialGradient id="g1" cx="50%" cy="45%" r="60%">
+          <stop offset="0%" stop-color="rgba(255,255,255,.28)"/>
+          <stop offset="45%" stop-color="rgba(0,255,200,.18)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+        </radialGradient>
+
+        <linearGradient id="toriiRed" x1="0" x2="1">
+          <stop offset="0%" stop-color="rgba(255,90,130,.85)"/>
+          <stop offset="50%" stop-color="rgba(255,255,255,.20)"/>
+          <stop offset="100%" stop-color="rgba(120,90,255,.70)"/>
+        </linearGradient>
+
+        <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="6" result="b"/>
+          <feColorMatrix in="b" type="matrix"
+            values="1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    0 0 0 .55 0" result="g"/>
+          <feMerge>
+            <feMergeNode in="g"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <circle cx="600" cy="320" r="300" fill="url(#g1)" opacity=".9"></circle>
+
+      <!-- travessão superior -->
+      <path d="M120 150 C 300 70, 900 70, 1080 150
+               C 900 135, 300 135, 120 150 Z"
+            fill="url(#toriiRed)" opacity=".95" filter="url(#softGlow)"></path>
+
+      <!-- travessão inferior -->
+      <path d="M200 220 C 340 170, 860 170, 1000 220
+               C 860 210, 340 210, 200 220 Z"
+            fill="rgba(255,255,255,.10)" opacity=".9"></path>
+
+      <!-- pilares -->
+      <path d="M300 235
+               C 290 330, 280 520, 292 640
+               C 305 660, 345 660, 360 640
+               C 372 520, 360 330, 350 235 Z"
+            fill="url(#toriiRed)" opacity=".92" filter="url(#softGlow)"></path>
+
+      <path d="M840 235
+               C 830 330, 820 520, 832 640
+               C 845 660, 885 660, 900 640
+               C 912 520, 900 330, 890 235 Z"
+            fill="url(#toriiRed)" opacity=".92" filter="url(#softGlow)"></path>
+
+      <!-- base dos pilares -->
+      <path d="M260 640 C 300 615, 360 615, 400 640
+               C 360 665, 300 665, 260 640 Z"
+            fill="rgba(255,255,255,.10)" opacity=".85"></path>
+
+      <path d="M800 640 C 840 615, 900 615, 940 640
+               C 900 665, 840 665, 800 640 Z"
+            fill="rgba(255,255,255,.10)" opacity=".85"></path>
+
+      <!-- coluna central -->
+      <path d="M585 255
+               C 575 340, 568 520, 575 640
+               C 585 655, 615 655, 625 640
+               C 632 520, 625 340, 615 255 Z"
+            fill="rgba(255,255,255,.08)" opacity=".75"></path>
+
+      <!-- “nuki” -->
+      <path d="M350 305 C 430 270, 770 270, 850 305
+               C 770 320, 430 320, 350 305 Z"
+            fill="rgba(0,255,200,.10)" opacity=".8"></path>
+    </svg>
+  </div>
 
   <div class="shoji left"></div>
   <div class="shoji right"></div>
@@ -1875,8 +1955,8 @@ init();
 
       const x = Math.random()*100;                 // vw
       const drift = (Math.random()*40 - 20);       // vw drift
-      const dur = 7 + Math.random()*6;             // s
-      const delay = Math.random()*3;               // s
+      const dur = 11 + Math.random()*9;            // MAIS DEVAGAR (11s a 20s)
+      const delay = Math.random()*4;               // mais suave
 
       p.style.setProperty("--x", `${x}vw`);
       p.style.setProperty("--drift", `${drift}vw`);
@@ -1918,11 +1998,12 @@ init();
     document.documentElement.style.setProperty("--moodHue", "210");
     chime();
 
+    // MAIS DEVAGAR (combina com a animação)
     setTimeout(()=>{
       gate.style.display = "none";
       app.classList.remove("appHidden");
       window.scrollTo(0,0);
-    }, 880);
+    }, 1700);
   }
 
   btn.addEventListener("click", enter);
