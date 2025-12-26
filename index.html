@@ -324,7 +324,7 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
 }
 
 /* =========================================================
-   PORTAL / ENTRADA — IMERSIVO E BEM JAPONÊS (SHOJI + SAKURA)
+   PORTAL / ENTRADA — IMERSIVO E BEM JAPONÊS
 ========================================================= */
 #app.appHidden{ display:none; }
 
@@ -360,6 +360,61 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
     radial-gradient(circle at 19px 19px, rgba(255,255,255,.14) 0 2px, transparent 2px 18px) 0 0/38px 38px,
     radial-gradient(circle at 0 0, rgba(120,90,255,.18) 0 1px, transparent 1px 22px) 0 0/44px 44px;
   filter: blur(.2px);
+}
+
+/* ===== 無常 (GIANTE) — BACKDROP, DETALHADO ===== */
+.mujo{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-52%);
+  font-weight: 1000;
+  letter-spacing: 10px;
+  font-size: clamp(120px, 18vw, 260px);
+  line-height: 1;
+  opacity: .16;
+  z-index: 0;
+  pointer-events:none;
+
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.55),
+    rgba(160,240,255,.40),
+    rgba(210,170,255,.48),
+    rgba(255,90,130,.30)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  text-shadow:
+    0 0 24px rgba(160,240,255,.10),
+    0 0 60px rgba(0,255,200,.08),
+    0 0 120px rgba(255,90,130,.06);
+
+  filter: drop-shadow(0 0 22px rgba(0,0,0,.55));
+  animation: mujoBreath 7.5s ease-in-out infinite;
+}
+.mujo::before,
+.mujo::after{
+  content: "無常";
+  position:absolute;
+  inset:0;
+  opacity:.38;
+  pointer-events:none;
+}
+.mujo::before{
+  transform: translate(2px, -1px);
+  color: rgba(0,255,200,.18);
+  filter: blur(.2px);
+}
+.mujo::after{
+  transform: translate(-2px, 1px);
+  color: rgba(255,90,130,.16);
+  filter: blur(.2px);
+}
+@keyframes mujoBreath{
+  0%,100%{ transform: translate(-50%,-52%) scale(1.00); opacity:.14; }
+  50%{ transform: translate(-50%,-53%) scale(1.02); opacity:.20; }
 }
 
 /* ===== TORII (SVG) — MAIS REAL E PRESENTE ===== */
@@ -426,7 +481,7 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
   text-align:center;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  animation: jpIn 1.25s ease both; /* MAIS DEVAGAR */
+  animation: jpIn 1.25s ease both;
 }
 @keyframes jpIn{
   from{ opacity:0; transform: translateY(18px) scale(.975); }
@@ -628,6 +683,9 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
   <div class="jp-bg"></div>
   <div class="jp-pattern"></div>
 
+  <!-- 無常 — gigante ao fundo -->
+  <div class="mujo" aria-hidden="true">無常</div>
+
   <!-- TORII (SVG REAL) -->
   <div class="jp-torii" aria-hidden="true">
     <svg viewBox="0 0 1200 700" role="presentation">
@@ -660,17 +718,14 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
 
       <circle cx="600" cy="320" r="300" fill="url(#g1)" opacity=".9"></circle>
 
-      <!-- travessão superior -->
       <path d="M120 150 C 300 70, 900 70, 1080 150
                C 900 135, 300 135, 120 150 Z"
             fill="url(#toriiRed)" opacity=".95" filter="url(#softGlow)"></path>
 
-      <!-- travessão inferior -->
       <path d="M200 220 C 340 170, 860 170, 1000 220
                C 860 210, 340 210, 200 220 Z"
             fill="rgba(255,255,255,.10)" opacity=".9"></path>
 
-      <!-- pilares -->
       <path d="M300 235
                C 290 330, 280 520, 292 640
                C 305 660, 345 660, 360 640
@@ -683,7 +738,6 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
                C 912 520, 900 330, 890 235 Z"
             fill="url(#toriiRed)" opacity=".92" filter="url(#softGlow)"></path>
 
-      <!-- base dos pilares -->
       <path d="M260 640 C 300 615, 360 615, 400 640
                C 360 665, 300 665, 260 640 Z"
             fill="rgba(255,255,255,.10)" opacity=".85"></path>
@@ -692,14 +746,12 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
                C 900 665, 840 665, 800 640 Z"
             fill="rgba(255,255,255,.10)" opacity=".85"></path>
 
-      <!-- coluna central -->
       <path d="M585 255
                C 575 340, 568 520, 575 640
                C 585 655, 615 655, 625 640
                C 632 520, 625 340, 615 255 Z"
             fill="rgba(255,255,255,.08)" opacity=".75"></path>
 
-      <!-- “nuki” -->
       <path d="M350 305 C 430 270, 770 270, 850 305
                C 770 320, 430 320, 350 305 Z"
             fill="rgba(0,255,200,.10)" opacity=".8"></path>
@@ -1953,10 +2005,10 @@ init();
       const p = document.createElement("span");
       p.className = "petal";
 
-      const x = Math.random()*100;                 // vw
-      const drift = (Math.random()*40 - 20);       // vw drift
-      const dur = 11 + Math.random()*9;            // MAIS DEVAGAR (11s a 20s)
-      const delay = Math.random()*4;               // mais suave
+      const x = Math.random()*100;
+      const drift = (Math.random()*40 - 20);
+      const dur = 11 + Math.random()*9;   // 11s a 20s
+      const delay = Math.random()*4;
 
       p.style.setProperty("--x", `${x}vw`);
       p.style.setProperty("--drift", `${drift}vw`);
@@ -1998,12 +2050,11 @@ init();
     document.documentElement.style.setProperty("--moodHue", "210");
     chime();
 
-    // MAIS DEVAGAR (combina com a animação)
     setTimeout(()=>{
       gate.style.display = "none";
       app.classList.remove("appHidden");
       window.scrollTo(0,0);
-    }, 1700);
+    }, 1700); // mais devagar
   }
 
   btn.addEventListener("click", enter);
