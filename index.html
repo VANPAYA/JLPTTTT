@@ -13,10 +13,15 @@
   --muted:rgba(238,242,255,.72);
   --muted2:rgba(238,242,255,.55);
 
+  /* THEME (muda a cada 5s) */
+  --themeHue: 195;
+
+  /* Mood (só indicador do jogo) */
   --moodHue: 195;
-  --accent:  hsl(calc(var(--moodHue) - 25) 90% 60%);
-  --accent2: hsl(var(--moodHue) 90% 58%);
-  --accent3: hsl(calc(var(--moodHue) + 55) 90% 62%);
+
+  --accent:  hsl(calc(var(--themeHue) - 25) 90% 60%);
+  --accent2: hsl(var(--themeHue) 90% 58%);
+  --accent3: hsl(calc(var(--themeHue) + 55) 90% 62%);
 
   --good:#34d399;
   --bad:#fb7185;
@@ -40,11 +45,11 @@ body{
   font-family:"Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
   line-height:1.9;
   background:
-    radial-gradient(1100px 650px at 12% 10%, hsla(calc(var(--moodHue) - 25), 90%, 60%, .22), transparent 55%),
-    radial-gradient(900px 600px at 92% 15%, hsla(var(--moodHue), 90%, 58%, .18), transparent 55%),
-    radial-gradient(900px 650px at 20% 92%, hsla(calc(var(--moodHue) + 55), 90%, 62%, .14), transparent 55%),
+    radial-gradient(1100px 650px at 12% 10%, hsla(calc(var(--themeHue) - 25), 90%, 60%, .22), transparent 55%),
+    radial-gradient(900px 600px at 92% 15%, hsla(var(--themeHue), 90%, 58%, .18), transparent 55%),
+    radial-gradient(900px 650px at 20% 92%, hsla(calc(var(--themeHue) + 55), 90%, 62%, .14), transparent 55%),
     var(--bg);
-  transition: background .5s ease;
+  transition: background .65s ease, filter .65s ease;
 }
 
 header{
@@ -136,8 +141,8 @@ nav{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content
 .tabbtn:hover{ background: rgba(255,255,255,.14); }
 .tabbtn:active{ transform: translateY(1px); }
 .tabbtn.active{
-  border-color: hsla(var(--moodHue), 90%, 60%, .60);
-  background: hsla(var(--moodHue), 90%, 55%, .22);
+  border-color: hsla(var(--themeHue), 90%, 60%, .60);
+  background: hsla(var(--themeHue), 90%, 55%, .22);
 }
 
 .btn{
@@ -155,8 +160,8 @@ nav{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content
 .btn:hover{ background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.38); }
 .btn:active{ transform: translateY(1px); }
 .btn.primary{
-  border-color: hsla(var(--moodHue), 90%, 60%, .70);
-  background: hsla(var(--moodHue), 90%, 55%, .26);
+  border-color: hsla(var(--themeHue), 90%, 60%, .70);
+  background: hsla(var(--themeHue), 90%, 55%, .26);
 }
 .btn.good{ border-color: rgba(52,211,153,.75); background: rgba(52,211,153,.20); }
 .btn.danger{ border-color: rgba(251,113,133,.75); background: rgba(251,113,133,.18); }
@@ -201,7 +206,7 @@ input[type="text"]::placeholder{ color: rgba(238,242,255,.55); font-weight:700; 
 }
 .kanjiitem:hover{
   transform: translateY(-1px);
-  border-color: hsla(var(--moodHue), 90%, 60%, .55);
+  border-color: hsla(var(--themeHue), 90%, 60%, .55);
   background: rgba(255,255,255,.13);
 }
 .kanjiitem .k{ font-size:28px; font-weight:900; color: var(--accent2); }
@@ -271,7 +276,7 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
 .choiceBtn:hover{
   transform: translateY(-1px);
   background: rgba(255,255,255,.18);
-  border-color: hsla(var(--moodHue), 90%, 60%, .55);
+  border-color: hsla(var(--themeHue), 90%, 60%, .55);
 }
 .choiceBtn.correct{ border-color: rgba(52,211,153,.85); background: rgba(52,211,153,.22); }
 .choiceBtn.wrong{ border-color: rgba(251,113,133,.85); background: rgba(251,113,133,.20); }
@@ -290,11 +295,11 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
   height:100%;
   width:100%;
   background: linear-gradient(90deg,
-    hsla(var(--moodHue), 90%, 60%, .90),
-    hsla(calc(var(--moodHue) - 25), 90%, 60%, .85),
-    hsla(calc(var(--moodHue) + 55), 90%, 62%, .75)
+    hsla(var(--themeHue), 90%, 60%, .90),
+    hsla(calc(var(--themeHue) - 25), 90%, 60%, .85),
+    hsla(calc(var(--themeHue) + 55), 90%, 62%, .75)
   );
-  transition: width .12s linear;
+  transition: width .12s linear, filter .65s ease;
 }
 
 .flash{ position: fixed; inset: 0; pointer-events: none; opacity: 0; z-index: 999; }
@@ -303,7 +308,6 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
 .flash.on{ animation: flash .55s ease-out; }
 @keyframes flash{ 0%{ opacity:0; } 20%{ opacity:1; } 100%{ opacity:0; } }
 
-/* toggle mais visível */
 .toggle{
   display:flex;
   align-items:center;
@@ -320,11 +324,11 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
 .toggle input{
   width:16px;
   height:16px;
-  accent-color: hsl(var(--moodHue) 90% 60%);
+  accent-color: hsl(var(--themeHue) 90% 60%);
 }
 
 /* =========================================================
-   PORTAL / ENTRADA — IMERSIVO E BEM JAPONÊS
+   PORTAL / ENTRADA — IMERSIVO
 ========================================================= */
 #app.appHidden{ display:none; }
 
@@ -362,86 +366,86 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
   filter: blur(.2px);
 }
 
-/* ===== 無常 (GIANTE) — BACKDROP, DETALHADO ===== */
+/* ===== 無常 (MAIS VISÍVEL) ===== */
 .mujo{
   position:absolute;
   left:50%;
   top:50%;
   transform: translate(-50%,-52%);
   font-weight: 1000;
-  letter-spacing: 10px;
-  font-size: clamp(120px, 18vw, 260px);
+  letter-spacing: 12px;
+  font-size: clamp(180px, 24vw, 360px);
   line-height: 1;
-  opacity: .16;
-  z-index: 0;
+  opacity: .34;
+  z-index: 1;
   pointer-events:none;
 
   background: linear-gradient(90deg,
-    rgba(255,255,255,.55),
-    rgba(160,240,255,.40),
-    rgba(210,170,255,.48),
-    rgba(255,90,130,.30)
+    rgba(255,255,255,.95),
+    rgba(160,240,255,.70),
+    rgba(210,170,255,.78),
+    rgba(255,90,130,.55)
   );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 
-  text-shadow:
-    0 0 24px rgba(160,240,255,.10),
-    0 0 60px rgba(0,255,200,.08),
-    0 0 120px rgba(255,90,130,.06);
+  -webkit-text-stroke: 1.2px rgba(255,255,255,.22);
 
-  filter: drop-shadow(0 0 22px rgba(0,0,0,.55));
-  animation: mujoBreath 7.5s ease-in-out infinite;
+  text-shadow:
+    0 0 18px rgba(255,255,255,.10),
+    0 0 48px rgba(160,240,255,.16),
+    0 0 110px rgba(0,255,200,.10),
+    0 0 160px rgba(255,90,130,.10);
+
+  filter: drop-shadow(0 0 30px rgba(0,0,0,.60));
+  animation: mujoBreath 6.8s ease-in-out infinite;
 }
 .mujo::before,
 .mujo::after{
   content: "無常";
   position:absolute;
   inset:0;
-  opacity:.38;
+  opacity:.55;
   pointer-events:none;
 }
 .mujo::before{
   transform: translate(2px, -1px);
   color: rgba(0,255,200,.18);
-  filter: blur(.2px);
+  filter: blur(.3px);
 }
 .mujo::after{
   transform: translate(-2px, 1px);
-  color: rgba(255,90,130,.16);
-  filter: blur(.2px);
+  color: rgba(255,90,130,.18);
+  filter: blur(.3px);
 }
 @keyframes mujoBreath{
-  0%,100%{ transform: translate(-50%,-52%) scale(1.00); opacity:.14; }
-  50%{ transform: translate(-50%,-53%) scale(1.02); opacity:.20; }
+  0%,100%{ transform: translate(-50%,-52%) scale(1.00); opacity:.30; }
+  50%{ transform: translate(-50%,-53%) scale(1.03); opacity:.40; }
 }
 
-/* ===== TORII (SVG) — MAIS REAL E PRESENTE ===== */
+/* ===== TORII (mais japonês, mais “jinja”) ===== */
 .jp-torii{
   position:absolute;
   left:50%;
   top:50%;
-  width:min(980px, 98vw);
-  height:min(620px, 76vh);
+  width:min(1040px, 98vw);
+  height:min(660px, 82vh);
   transform: translate(-50%,-54%);
-  opacity:.55;
+  opacity:.78;
   pointer-events:none;
-  z-index:1;
-  filter: blur(.0px);
-  animation: toriiFloat 5.5s ease-in-out infinite;
+  z-index:2;
+  animation: toriiFloat 5.6s ease-in-out infinite;
 }
 .jp-torii svg{
   width:100%;
   height:100%;
   display:block;
-  opacity:1;
-  transform: scale(1.02);
-  filter: drop-shadow(0 0 28px rgba(0,255,200,.10));
+  filter: drop-shadow(0 0 34px rgba(0,0,0,.55));
 }
 @keyframes toriiFloat{
-  0%,100%{ transform: translate(-50%,-54%) scale(1.02); opacity:.52; }
-  50%{ transform: translate(-50%,-55.2%) scale(1.03); opacity:.62; }
+  0%,100%{ transform: translate(-50%,-54%) scale(1.01); opacity:.72; }
+  50%{ transform: translate(-50%,-55.2%) scale(1.02); opacity:.84; }
 }
 
 .shoji{
@@ -457,7 +461,7 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   opacity:.95;
-  z-index:2;
+  z-index:3;
 }
 .shoji.left{ left:0; border-right:1px solid rgba(255,255,255,.16); }
 .shoji.right{ right:0; border-left:1px solid rgba(255,255,255,.16); }
@@ -471,7 +475,7 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
 
 .jp-card{
   position:relative;
-  z-index:4;
+  z-index:5;
   width:min(720px, 92vw);
   border-radius: 26px;
   border: 1px solid rgba(255,255,255,.18);
@@ -481,7 +485,7 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
   text-align:center;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  animation: jpIn 1.25s ease both;
+  animation: jpIn 1.15s ease both;
 }
 @keyframes jpIn{
   from{ opacity:0; transform: translateY(18px) scale(.975); }
@@ -613,7 +617,7 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
   position:absolute;
   inset:0;
   pointer-events:none;
-  z-index:3;
+  z-index:4;
 }
 .petal{
   position:absolute;
@@ -648,10 +652,10 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
     radial-gradient(900px 650px at 50% 55%, rgba(120,90,255,.20), transparent 62%),
     radial-gradient(900px 650px at 55% 50%, rgba(0,255,200,.16), transparent 62%);
   transform: scale(1);
-  z-index:5;
+  z-index:6;
 }
 
-/* ===== SAÍDA MAIS DEVAGAR ===== */
+/* saída mais devagar */
 .jpGate.leaving .shoji.left{ animation: shojiLeft 1.55s cubic-bezier(.2,.9,.2,1) forwards; }
 .jpGate.leaving .shoji.right{ animation: shojiRight 1.55s cubic-bezier(.2,.9,.2,1) forwards; }
 @keyframes shojiLeft{ to{ transform: translateX(-105%); opacity:.98; } }
@@ -678,37 +682,48 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
 <body>
 <div id="flash" class="flash"></div>
 
-<!-- ====== PORTAL / TELA DE ENTRADA (JAPANESE IMMERSIVE) ====== -->
+<!-- ====== PORTAL / TELA DE ENTRADA ====== -->
 <section id="gate" class="jpGate">
   <div class="jp-bg"></div>
   <div class="jp-pattern"></div>
 
-  <!-- 無常 — gigante ao fundo -->
+  <!-- 無常 gigante -->
   <div class="mujo" aria-hidden="true">無常</div>
 
-  <!-- TORII (SVG REAL) -->
+  <!-- TORII (mais japonês) -->
   <div class="jp-torii" aria-hidden="true">
-    <svg viewBox="0 0 1200 700" role="presentation">
+    <svg viewBox="0 0 1400 800" role="presentation">
       <defs>
-        <radialGradient id="g1" cx="50%" cy="45%" r="60%">
-          <stop offset="0%" stop-color="rgba(255,255,255,.28)"/>
-          <stop offset="45%" stop-color="rgba(0,255,200,.18)"/>
-          <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
-        </radialGradient>
-
-        <linearGradient id="toriiRed" x1="0" x2="1">
-          <stop offset="0%" stop-color="rgba(255,90,130,.85)"/>
-          <stop offset="50%" stop-color="rgba(255,255,255,.20)"/>
-          <stop offset="100%" stop-color="rgba(120,90,255,.70)"/>
+        <!-- vermilion (torii) -->
+        <linearGradient id="verm" x1="0" x2="1">
+          <stop offset="0%" stop-color="rgba(255,90,90,.92)"/>
+          <stop offset="35%" stop-color="rgba(255,70,120,.88)"/>
+          <stop offset="70%" stop-color="rgba(190,90,255,.70)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,.10)"/>
         </linearGradient>
 
-        <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur stdDeviation="6" result="b"/>
+        <!-- subtle wood/patina -->
+        <filter id="patina" x="-30%" y="-30%" width="160%" height="160%">
+          <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="9" result="n"/>
+          <feColorMatrix in="n" type="matrix"
+            values="1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    0 0 0 .10 0" result="a"/>
+          <feComposite in="a" in2="SourceGraphic" operator="in" result="m"/>
+          <feMerge>
+            <feMergeNode in="m"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+
+        <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="8" result="b"/>
           <feColorMatrix in="b" type="matrix"
             values="1 0 0 0 0
                     0 1 0 0 0
                     0 0 1 0 0
-                    0 0 0 .55 0" result="g"/>
+                    0 0 0 .45 0" result="g"/>
           <feMerge>
             <feMergeNode in="g"/>
             <feMergeNode in="SourceGraphic"/>
@@ -716,45 +731,58 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
         </filter>
       </defs>
 
-      <circle cx="600" cy="320" r="300" fill="url(#g1)" opacity=".9"></circle>
+      <!-- kasagi (top beam) -->
+      <path d="M110 190
+               C 340 88, 1060 88, 1290 190
+               C 1060 165, 340 165, 110 190 Z"
+            fill="url(#verm)" filter="url(#glow)"></path>
 
-      <path d="M120 150 C 300 70, 900 70, 1080 150
-               C 900 135, 300 135, 120 150 Z"
-            fill="url(#toriiRed)" opacity=".95" filter="url(#softGlow)"></path>
+      <!-- shimaki (secondary top beam) -->
+      <path d="M210 270
+               C 420 200, 980 200, 1190 270
+               C 980 252, 420 252, 210 270 Z"
+            fill="rgba(255,255,255,.12)"></path>
 
-      <path d="M200 220 C 340 170, 860 170, 1000 220
-               C 860 210, 340 210, 200 220 Z"
-            fill="rgba(255,255,255,.10)" opacity=".9"></path>
+      <!-- nuki (crossbar) -->
+      <path d="M320 360
+               C 460 318, 940 318, 1080 360
+               C 940 382, 460 382, 320 360 Z"
+            fill="rgba(0,255,200,.10)"></path>
 
-      <path d="M300 235
-               C 290 330, 280 520, 292 640
-               C 305 660, 345 660, 360 640
-               C 372 520, 360 330, 350 235 Z"
-            fill="url(#toriiRed)" opacity=".92" filter="url(#softGlow)"></path>
+      <!-- left pillar -->
+      <path d="M410 300
+               C 395 420, 380 610, 396 728
+               C 408 760, 470 760, 488 728
+               C 505 610, 488 420, 474 300 Z"
+            fill="url(#verm)" filter="url(#patina)"></path>
 
-      <path d="M840 235
-               C 830 330, 820 520, 832 640
-               C 845 660, 885 660, 900 640
-               C 912 520, 900 330, 890 235 Z"
-            fill="url(#toriiRed)" opacity=".92" filter="url(#softGlow)"></path>
+      <!-- right pillar -->
+      <path d="M926 300
+               C 912 420, 898 610, 914 728
+               C 926 760, 988 760, 1006 728
+               C 1022 610, 1006 420, 992 300 Z"
+            fill="url(#verm)" filter="url(#patina)"></path>
 
-      <path d="M260 640 C 300 615, 360 615, 400 640
-               C 360 665, 300 665, 260 640 Z"
-            fill="rgba(255,255,255,.10)" opacity=".85"></path>
+      <!-- center pillar (shin-no-mihashira) -->
+      <path d="M684 330
+               C 675 440, 668 612, 674 728
+               C 683 754, 717 754, 726 728
+               C 733 612, 726 440, 716 330 Z"
+            fill="rgba(255,255,255,.07)"></path>
 
-      <path d="M800 640 C 840 615, 900 615, 940 640
-               C 900 665, 840 665, 800 640 Z"
-            fill="rgba(255,255,255,.10)" opacity=".85"></path>
+      <!-- bases -->
+      <path d="M372 728 C 420 696, 496 696, 544 728
+               C 496 760, 420 760, 372 728 Z"
+            fill="rgba(255,255,255,.10)"></path>
 
-      <path d="M585 255
-               C 575 340, 568 520, 575 640
-               C 585 655, 615 655, 625 640
-               C 632 520, 625 340, 615 255 Z"
-            fill="rgba(255,255,255,.08)" opacity=".75"></path>
+      <path d="M870 728 C 918 696, 994 696, 1042 728
+               C 994 760, 918 760, 870 728 Z"
+            fill="rgba(255,255,255,.10)"></path>
 
-      <path d="M350 305 C 430 270, 770 270, 850 305
-               C 770 320, 430 320, 350 305 Z"
-            fill="rgba(0,255,200,.10)" opacity=".8"></path>
+      <!-- small center cap -->
+      <path d="M658 275 C 690 255, 720 255, 752 275
+               C 720 292, 690 292, 658 275 Z"
+            fill="rgba(255,255,255,.08)"></path>
     </svg>
   </div>
 
@@ -998,6 +1026,20 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
 </div>
 
 <script>
+/* =========================
+   THEME CYCLE (a cada 5s)
+========================= */
+(function(){
+  const hues = [195, 230, 265, 305, 20, 55, 110, 155];
+  let i = Math.floor(Math.random() * hues.length);
+  document.documentElement.style.setProperty("--themeHue", String(hues[i]));
+
+  setInterval(()=>{
+    i = (i + 1) % hues.length;
+    document.documentElement.style.setProperty("--themeHue", String(hues[i]));
+  }, 5000);
+})();
+
 /* =========================
    LISTAS DE NÍVEL
 ========================= */
@@ -1578,8 +1620,6 @@ function moodScore(){
 }
 function applyMood(){
   const s = moodScore();
-  const hue = Math.round(8 + s * 127);
-  document.documentElement.style.setProperty("--moodHue", String(hue));
   $("quizMoodText").textContent = `Mood: ${Math.round(s*100)}%`;
 }
 
@@ -1989,7 +2029,7 @@ function init(){
 init();
 
 /* =========================
-   PORTAL / ENTRADA — JAPANESE IMMERSIVE
+   PORTAL / ENTRADA
 ========================= */
 (function(){
   const gate = document.getElementById("gate");
@@ -2007,7 +2047,7 @@ init();
 
       const x = Math.random()*100;
       const drift = (Math.random()*40 - 20);
-      const dur = 11 + Math.random()*9;   // 11s a 20s
+      const dur = 11 + Math.random()*9;
       const delay = Math.random()*4;
 
       p.style.setProperty("--x", `${x}vw`);
@@ -2047,14 +2087,13 @@ init();
     gate.classList.add("leaving");
     btn.disabled = true;
 
-    document.documentElement.style.setProperty("--moodHue", "210");
     chime();
 
     setTimeout(()=>{
       gate.style.display = "none";
       app.classList.remove("appHidden");
       window.scrollTo(0,0);
-    }, 1700); // mais devagar
+    }, 1700);
   }
 
   btn.addEventListener("click", enter);
