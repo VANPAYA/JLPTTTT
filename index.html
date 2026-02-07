@@ -580,6 +580,147 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
 .vocabWord{ font-weight:1000; font-size:14px; color: rgba(255,255,255,.96); }
 .vocabReading, .vocabMeaning{ font-size:12px; color: var(--muted); margin-top:4px; }
 .vocabReading b, .vocabMeaning b{ color: var(--text); }
+
+/* =========================================================
+   ✅ PIX / DOAÇÃO (cantinho)
+========================================================= */
+.donateFab{
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 9999;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(0,0,0,.26);
+  color: rgba(255,255,255,.95);
+  padding: 10px 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 1000;
+  letter-spacing: .3px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform .08s ease, background .18s ease, border-color .18s ease;
+}
+.donateFab:hover{
+  background: rgba(255,255,255,.12);
+  border-color: hsla(var(--themeHue), 90%, 60%, .55);
+}
+.donateFab:active{ transform: translateY(1px); }
+
+.donateModal{
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0,0,0,.55);
+}
+.donateModal.open{ display: flex; }
+
+.donateCard{
+  width: min(860px, 98vw);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  overflow: hidden;
+}
+.donateHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.donateHead .t{
+  font-weight: 1000;
+  letter-spacing: .8px;
+  font-size: 13px;
+  color: rgba(238,242,255,.88);
+}
+.donateBody{
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 14px;
+}
+@media (max-width: 760px){
+  .donateBody{ grid-template-columns: 1fr; }
+}
+.qrBox{
+  border:1px solid rgba(255,255,255,.14);
+  border-radius: 18px;
+  padding: 12px;
+  background: rgba(255,255,255,.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.qrBox img{
+  width: 220px;
+  height: 220px;
+  border-radius: 12px;
+  background: #fff;
+}
+.donateText{
+  border:1px solid rgba(255,255,255,.14);
+  border-radius: 18px;
+  padding: 12px;
+  background: rgba(255,255,255,.06);
+}
+.donateText .title{
+  font-weight: 1000;
+  letter-spacing: .4px;
+  margin: 0 0 6px;
+}
+.donateText .sub{
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.codeBox{
+  border:1px solid rgba(255,255,255,.14);
+  border-radius: 14px;
+  padding: 10px;
+  background: rgba(0,0,0,.22);
+}
+.codeLabel{
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 900;
+  letter-spacing: .3px;
+}
+.codeValue{
+  margin-top: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  color: rgba(255,255,255,.92);
+  word-break: break-all;
+  line-height: 1.5;
+}
+.donateActions{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.copyOk{
+  display:none;
+  margin-top: 8px;
+  font-size: 12px;
+  color: rgba(52,211,153,.95);
+  font-weight: 900;
+}
+.copyOk.show{ display:block; }
 </style>
 </head>
 
@@ -758,6 +899,11 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
       <a class="btn linkout" href="https://vanpaya.github.io/TEXTOOO/" target="_blank" rel="noopener">
         <span class="dot"></span> Análise de Texto
       </a>
+
+      <!-- ✅ (ADD) atalho Pix no menu -->
+      <button class="btn ghost" id="openDonateTop" type="button" title="Apoiar via Pix">
+        💠 Pix
+      </button>
     </nav>
   </div>
 </header>
@@ -973,7 +1119,131 @@ hr.sep{ border:none; border-top:1px solid rgba(255,255,255,.10); margin:14px 0; 
   <div class="footer">ヴァンパイア全知全能 © 2025</div>
 </div>
 
+<!-- ✅ (ADD) botão flutuante no “cantinho” -->
+<button class="donateFab" id="donateFab" type="button" title="Apoiar via Pix">
+  ❤️ Apoiar (Pix)
+</button>
+
+<!-- ✅ (ADD) modal Pix -->
+<div class="donateModal" id="donateModal" aria-hidden="true">
+  <div class="donateCard" role="dialog" aria-modal="true" aria-label="Apoiar via Pix">
+    <div class="donateHead">
+      <div class="t">💠 Apoiar via Pix</div>
+      <button class="btn danger" id="donateClose" type="button">Fechar</button>
+    </div>
+
+    <div class="donateBody">
+      <div class="qrBox">
+        <img id="pixQrImg" alt="QR Code Pix" />
+      </div>
+
+      <div class="donateText">
+        <p class="title">Se quiser ajudar o projeto ✨</p>
+        <p class="sub">
+          Use o <b>QR</b> ou copie a <b>chave</b> / <b>Pix copia e cola</b>.
+        </p>
+
+        <div class="codeBox">
+          <div class="codeLabel">Chave Pix</div>
+          <div class="codeValue" id="pixKeyText">—</div>
+          <div class="donateActions">
+            <button class="btn good" id="copyPixKey" type="button">Copiar chave</button>
+          </div>
+        </div>
+
+        <div class="codeBox" style="margin-top:10px;">
+          <div class="codeLabel">Pix “copia e cola”</div>
+          <div class="codeValue" id="pixPayloadText">—</div>
+          <div class="donateActions">
+            <button class="btn primary" id="copyPixPayload" type="button">Copiar código</button>
+          </div>
+        </div>
+
+        <div class="copyOk" id="copyOk">✅ Copiado!</div>
+        <p class="small" style="margin-top:10px;">
+          Dica: no celular, abrir este modal e escanear pelo app do banco.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
+/* =========================
+   ✅ PIX CONFIG (seu Pix)
+========================= */
+const PIX_KEY = "felipejogo7734@gmail.com";
+const PIX_PAYLOAD = "00020126460014BR.GOV.BCB.PIX0124felipejogo7734@gmail.com5204000053039865802BR5901N6001C62070503feh63040FA4";
+
+/* ✅ UI Pix */
+(function(){
+  const modal = document.getElementById("donateModal");
+  const fab = document.getElementById("donateFab");
+  const topBtn = document.getElementById("openDonateTop");
+  const closeBtn = document.getElementById("donateClose");
+
+  const keyEl = document.getElementById("pixKeyText");
+  const payloadEl = document.getElementById("pixPayloadText");
+  const qrImg = document.getElementById("pixQrImg");
+
+  const copyKeyBtn = document.getElementById("copyPixKey");
+  const copyPayloadBtn = document.getElementById("copyPixPayload");
+  const copyOk = document.getElementById("copyOk");
+
+  function open(){
+    keyEl.textContent = PIX_KEY;
+    payloadEl.textContent = PIX_PAYLOAD;
+
+    // QR gerado via imagem (simples, sem biblioteca)
+    const size = 220;
+    const data = encodeURIComponent(PIX_PAYLOAD);
+    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${data}`;
+
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden","false");
+  }
+  function close(){
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden","true");
+    copyOk.classList.remove("show");
+  }
+
+  async function copyText(t){
+    try{
+      await navigator.clipboard.writeText(t);
+      copyOk.classList.add("show");
+      setTimeout(()=>copyOk.classList.remove("show"), 1100);
+    }catch{
+      // fallback
+      const ta = document.createElement("textarea");
+      ta.value = t;
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      try{ document.execCommand("copy"); }catch{}
+      document.body.removeChild(ta);
+      copyOk.classList.add("show");
+      setTimeout(()=>copyOk.classList.remove("show"), 1100);
+    }
+  }
+
+  fab.addEventListener("click", open);
+  if(topBtn) topBtn.addEventListener("click", open);
+  closeBtn.addEventListener("click", close);
+
+  modal.addEventListener("click", (e)=>{
+    if(e.target === modal) close();
+  });
+
+  window.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && modal.classList.contains("open")) close();
+  });
+
+  copyKeyBtn.addEventListener("click", ()=>copyText(PIX_KEY));
+  copyPayloadBtn.addEventListener("click", ()=>copyText(PIX_PAYLOAD));
+})();
+
 /* =========================
    THEME CYCLE (a cada 5s)
 ========================= */
